@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "该文件用来确保Vscode能正常工作,请自己修改成对应目录",
+            "includePath": [
+                "E:\\Arduino\\hardware\\arduino\\avr\\**",
+                "E:\\Arduino\\tools\\**",
+                "E:\\Arduino\\hardware\\**",
+                "E:\\Arduino\\libraries\\**",
+                "F:\\Documents\\Arduino\\libraries\\**"
+            ],
+            "forcedInclude": [
+                "E:\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h"
+            ],
+            "intelliSenseMode": "msvc-x86",
+            "defines": [
+                "USBCON",
+                "ARDUINO=100",
+                "__AVR_ATmega328P__"
+            ]
+        }
+    ],
+    "version": 4
+}
