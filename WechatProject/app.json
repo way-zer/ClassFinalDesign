@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/report/report"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "backgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "校园卡失物招领小程序"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

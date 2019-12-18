@@ -1,0 +1,33 @@
+<view>
+  <view class='title'>失物招领</view>
+  <block wx:for-items="{{informations}}" wx:key="{{item.key}}">
+    <view class='card '>
+      <view class="cardTitle">
+        校园卡：{{item.card}}
+      </view>
+      <view class="cardInfo">
+        <text class='name'>{{item.name}}</text>
+        <text class='right tag'>{{item.status}}</text>
+        <text class='right time'>{{item.time}}</text>
+      </view>
+    </view>
+  </block>
+  <view class="footer">
+    <button class='btnLeft' bindtap='toReport'>我要挂失</button>
+    <button class='btnRight' bindtap='openModal'>捡到卡了</button>
+  </view>
+</view>
+<block wx:if="{{modal}}">
+  <view class="modal" bindtap="cancelModal">
+  </view>
+  <view class="window">
+    <view class="windowTitle">自助挂失</view>
+    <view class="weui-cell">
+      <input class="weui-input" placeholder="请输入卡号"></input>
+    </view>
+    <view class="weui-cell">
+      <input class="weui-input" placeholder="请输入姓名"></input>
+    </view>
+    <button class="windowBtn" bindtap='finishForm'>确认挂失</button>
+  </view>
+</block>

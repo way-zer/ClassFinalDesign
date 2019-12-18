@@ -1,0 +1,53 @@
+.weui-cell {
+}
+
+.title {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.info {
+  padding: 0 20px;
+}
+
+.mainBtn {
+  color: black;
+  margin: 40px;
+}
+
+/* Modal */
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.3;
+}
+
+.window {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 30%;
+  width: 83%;
+  margin: 35% 7%;
+  background-color: white;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 1.5%;
+}
+
+.windowTitle {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.finishBtn {
+  margin-top: 30px;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+}
