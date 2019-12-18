@@ -4,26 +4,10 @@ Page({
     modal: false,
   },
   onLoad: function (options) {
-    var that = this;
-    var data = {
-      "data1": [{
-        "key": 1,
-        "name": "的话更好",
-        "card": 2019210104,
-        "time": "12-22 12:30",
-        "status": "不见了",
-      },
-      {
-        "key": 2,
-        "name": "阿斯弗",
-        "card": 2019210103,
-        "time": "2017-12-22",
-        "status": "hhh",
-      },
-      ],
-    }
-    that.setData({
-      informations: data.data1,
+    app.service.getInfos(1).then(value=>{
+      this.setData({
+        informations: value
+      })
     })
   },
   toReport: function () {
