@@ -39,7 +39,7 @@ export const service ={
       data: {
         page
       }
-    }).then(this._dealResult)
+    }).then(this._dealResult)//TODO date to time
   },
   /**
    * 获取用户当前信息
