@@ -14,8 +14,9 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.4",
-	"appid": "wx74952e73207de8f0",
+	"appid": "wxd9eff3a9ee3727ee",
 	"projectname": "FinalWork",
+  "cloudfunctionRoot": "functions",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
