@@ -3,9 +3,7 @@ import {service} from './service.js'
 App({
   onLaunch: function () {
     this.service = service
-    wx.cloud.init({
-      env: 'test-g3p2o'
-    })
+    wx.cloud.init()
   },
   globalData: {
   }

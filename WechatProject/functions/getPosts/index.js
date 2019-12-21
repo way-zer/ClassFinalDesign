@@ -1,9 +1,7 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init({
-  env: 'test-g3p2o'
-})
+cloud.init()
 
 const db = cloud.database()
 const coll = db.collection("posts")

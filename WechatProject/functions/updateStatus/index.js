@@ -8,7 +8,7 @@
 function replacePos(str, pos, char) {
   const pre = str.substr(0, pos)
   const end = str.substr(pos + 1)
-  return pre + char + end
+  return pre + char +  end
 }
 const cloud = require('wx-server-sdk')
 function sendMsg(pos) {
@@ -17,9 +17,7 @@ function sendMsg(pos) {
   })
 }
 
-cloud.init({
-  env: 'test-g3p2o'
-})
+cloud.init()
 
 const db = cloud.database()
 
@@ -117,7 +115,7 @@ exports.main = async (event, context) => {
           user.status = "已找到"
           //TODO 找到通知
         }else{
-          var title = user.cardId
+          var title = ""+user.cardId
           for (var i = 4; i < 7; i++)title = replacePos(title, i, '*')
           title = "校园卡: " + title
           var userName = user.name
