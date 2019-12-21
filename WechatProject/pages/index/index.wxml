@@ -3,10 +3,10 @@
   <block wx:for-items="{{informations}}" wx:key="{{item.key}}">
     <view class='card '>
       <view class="cardTitle">
-        校园卡：{{item.card}}
+        {{item.title}}
       </view>
       <view class="cardInfo">
-        <text class='name'>{{item.name}}</text>
+        <text class='name'>{{item.userName}}</text>
         <text class='right tag'>{{item.status}}</text>
         <text class='right time'>{{item.time}}</text>
       </view>
@@ -23,10 +23,10 @@
   <view class="window">
     <view class="windowTitle">自助挂失</view>
     <view class="weui-cell">
-      <input class="weui-input" placeholder="请输入卡号"></input>
+      <input class="weui-input" placeholder="请输入姓名"></input>
     </view>
     <view class="weui-cell">
-      <input class="weui-input" placeholder="请输入姓名"></input>
+      <input class="weui-input" placeholder="请输入卡号"></input>
     </view>
     <button class="windowBtn" bindtap='finishForm'>确认挂失</button>
   </view>

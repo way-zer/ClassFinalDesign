@@ -2,24 +2,29 @@
 <button wx:if="{{unfinished}}" class="openBtn" bindtap="openModal">完善信息</button>
 <view wx:else class="info">
   <text >个人信息</text>
-  <view >姓名：</view>
-  <view >学号：</view>
+  <view >姓名：{{info.name}}</view>
+  <view >学号：{{info.cardId}}</view>
+  <view >状态：{{info.status}}</view>
 </view>
-
   <!-- <button class="anniu2">取消挂失</button> -->
-<button class="mainBtn" disabled="{{unfinished}}" bindtap="report">确定挂失</button>
+
+<button wx:if="{{info.status=='已挂失'}}"class="mainBtn" bindtap="cancelReport">取消挂失</button>
+<button wx:elif="{{info.status=='已找到'}}" class="mainBtn"  bindtap="takeCard">取卡</button>
+<button  wx:else class="mainBtn" disabled="{{unfinished}}" bindtap="ensure">确认挂失</button>
 
 <block wx:if="{{modal}}">
   <view class="modal" bindtap="cancelModal">
   </view>
   <view class="window"> 
     <view class="windowTitle">完善信息</view>
-    <view class="weui-cell">
-      <input class="weui-input" placeholder="请输入卡号"></input>
-    </view>
-    <view class="weui-cell">
-      <input class="weui-input" placeholder="请输入姓名"></input>
-    </view>
-    <button class="finishBtn" bindtap="finishForm">确认</button>
+    <form bindsubmit="finishForm">
+      <view class="weui-cell">
+        <input class="weui-input" placeholder="请输入姓名" name="name"></input>
+      </view>
+      <view class="weui-cell">
+        <input class="weui-input" placeholder="请输入卡号" name="cardId"></input>
+      </view>
+      <button class="finishBtn" form-type="submit"  >确认</button>
+    </form>
   </view>
 </block> 

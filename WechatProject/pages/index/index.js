@@ -4,11 +4,15 @@ Page({
     modal: false,
   },
   onLoad: function (options) {
-    app.service.getInfos(1).then(value=>{
+    app.service.infosHook = value=>{
       this.setData({
         informations: value
       })
-    })
+    }
+    app.service.loadInfos()
+  },
+  onUnload(){
+    app.service.infosHook = null;
   },
   toReport: function () {
     console.log("a")
@@ -29,6 +33,9 @@ Page({
   },
   finishForm: function () {
     this.cancelModal()
+    app.service.reportFound().then(value => {
+      
+      })
     wx.showModal({
       title: '提示',
       content: '输入相关信息后请将校园卡放入箱子中',

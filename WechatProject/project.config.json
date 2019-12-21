@@ -16,7 +16,7 @@
 	"libVersion": "2.9.4",
 	"appid": "wxd9eff3a9ee3727ee",
 	"projectname": "FinalWork",
-  "cloudfunctionRoot": "functions",
+	"cloudfunctionRoot": "functions/",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

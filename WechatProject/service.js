@@ -11,13 +11,14 @@ const MOCK = true
 let mockData={}
 let cacheData={}
 export const service ={
+  infosHook: null,
   /**
    * 获取首页挂失信息
-   * 返回Promise<数据数组>
    */
-  getInfos(page){
+  loadInfos(page){
     if(MOCK){
-      return Promise.resolve([
+      if(this.infosHook)
+        this.infosHook([
         {
           "key": 1,
           "userName": "的话更好",
@@ -39,7 +40,11 @@ export const service ={
       data: {
         page
       }
-    }).then(this._dealResult)//TODO date to time
+    }).then(this._dealResult)
+    .then(value=>{//TODO date to time
+      if (this.infosHook)
+        this.infosHook(value)
+    })
   },
   /**
    * 获取用户当前信息
