@@ -21,11 +21,8 @@ void setup()
     client.setCallback(mqttCallback);
     initConnection();
     stepper.setSpeed(8);
-    stepper.step(256);
-    digitalWrite(4, LOW);
-    digitalWrite(5, LOW);
-    digitalWrite(6, LOW);
-    digitalWrite(7, LOW);
+    stepper.step(2048);
+    stepperStop();
 }
 
 void loop()
@@ -33,27 +30,34 @@ void loop()
     loopConnection();
 }
 
+void stepperStop(){
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(7, LOW);
+}
+
 // cmd通道协议说明
 // payload[0] 表示类型
 //控制主舵机 payload[1]表示格位(1-8)
-#define CMD_MAIN_SERVO 0x02
+#define CMD_MAIN_SERVO 'a'
 //主舵机微调 payload[1]表示step(0-255) 执行后currentPos=0
-#define CMD_MAIN_RESET 0x1
+#define CMD_MAIN_RESET 'b'
 //开启主光电门检测
-#define CMD_START_CHECK 0x04
+#define CMD_START_CHECK 'c'
 //关闭主光电门检测
-#define CMD_END_CHECK 0x06
+#define CMD_END_CHECK 'd'
 
 // info通道协议说明
 // payload[0] 表示类型
 
 // 光电门触发开始
-#define INFO_CHECK_START 0x02
+#define INFO_CHECK_START 'A'
 // 光电门触发结束
-#define INFO_CHECK_END 0x04
+#define INFO_CHECK_END 'B'
 // 非法闯入警告
-#define INFO_CHECK_WARN 0x06
-#define INFO_PONG 0x31
+#define INFO_CHECK_WARN 'C'
+#define INFO_PONG '1'
 
 int currentPos = 0;
 #define abs(x) (x < 0 ? (-x) : x)
@@ -63,18 +67,23 @@ void mqttCallback(char topic[], byte *payload, unsigned int length)
     { //cmd
         Serial.print(F("Recived Msg:"));
         Serial.print(topic);
-        Serial.println(payload[0], HEX);
-        sendInfo(INFO_PONG);
-        if (payload[0] == CMD_MAIN_SERVO)
+        Serial.println((char)payload[0]);
+        if ((char)payload[0] == CMD_MAIN_SERVO)
         {
-            int num = payload[1] - 1;
-            sendInfo(INFO_PONG);
-            for (int i = -3; i <= 4; i++)
+            int num = (char)payload[1] - '1';
+            Serial.print(F("[Servo]Move to "));
+            Serial.println(num);
+            for (int i = 5; i <= 12; i++)
                 if ((currentPos + i) % 8 == num)
-                    stepper.step(256 * i);
-        }else if(payload[0] == CMD_MAIN_RESET){
+                    stepper.step(256 * (i-8));
+            stepperStop();
+            currentPos = num;
+        }else if((char)payload[0] == CMD_MAIN_RESET){
             stepper.step(payload[1]);
+            currentPos = 0;
+            stepperStop();
         }
+        sendInfo(INFO_PONG);
     }
 }
 

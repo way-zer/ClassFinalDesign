@@ -7,7 +7,7 @@
  * PostInfo状态: 丢失->已找到->已结束  发现->已结束
  * UserInfo状态: 正常->已挂失->已找到->(恢复正常)     若他人捡到直接跳到 已找到
  */
-const MOCK = true
+const MOCK = false
 let mockData={}
 let cacheData={}
 export const service ={
@@ -16,24 +16,30 @@ export const service ={
    * 获取首页挂失信息
    */
   loadInfos(page){
+    if(!this.infosHook)return;
+    this.infosHook([{
+      "key": "wait",
+      "userName": "请耐心等待",
+      "title": "正在获取数据",
+      "time": "3-20 5:20",
+      "status": "加载中",
+    }])
     if(MOCK){
-      if(this.infosHook)
-        this.infosHook([
-        {
-          "key": 1,
-          "userName": "的话更好",
-          "title": "校园卡: 2019***104",
-          "time": "12-22 12:30",
-          "status": "丢失",
-        },
-        {
-          "key": 2,
-          "userName": "阿斯弗",
-          "title": "校园卡: 2019***105",
-          "time": "12-22 12:30",
-          "status": "已找到",
-        },
-      ])
+      return this.infosHook([
+      {
+        "key": 1,
+        "userName": "的话更好",
+        "title": "校园卡: 2019***104",
+        "time": "12-22 12:30",
+        "status": "丢失",
+      },
+      {
+        "key": 2,
+        "userName": "阿斯弗",
+        "title": "校园卡: 2019***105",
+        "time": "12-22 12:30",
+        "status": "已找到",
+      }])
     }
     return wx.cloud.callFunction({
       name: "getPosts",
@@ -41,6 +47,11 @@ export const service ={
         page
       }
     }).then(this._dealResult)
+    .then(list=>(list.map(item=>{
+      const date = new Date(item.date);
+      item.time = `${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
+      return item;
+    })))
     .then(value=>{//TODO date to time
       if (this.infosHook)
         this.infosHook(value)
@@ -102,7 +113,9 @@ export const service ={
         type: "FOUND",
         name, cardId: id
       }
-    }).then(this._dealResult)
+    }).then(this._dealResult).then(()=>{
+      this.loadInfos(1)
+    })
   },
   /**
    * 挂失
@@ -120,7 +133,9 @@ export const service ={
       data: {
         type: "LOSS"
       }
-    }).then(this._dealResult)
+    }).then(this._dealResult).then(() => {
+      this.loadInfos(1)
+    })
   },
   /** 
    * 请求取卡
@@ -140,10 +155,13 @@ export const service ={
       data: {
         type: "CANCEL"
       }
-    }).then(this._dealResult)
+    }).then(this._dealResult).then(() => {
+      this.loadInfos(1)
+    })
   },
   _dealResult(result){
-    const {ok,data}=result
+    const {ok,data}=result.result
+    console.debug(result)
     if(ok)
       return Promise.resolve(data)
     else

@@ -1,7 +1,9 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init()
+cloud.init({
+  env: 'test-g3p2o'
+})
 
 
 const db = cloud.database()
@@ -16,7 +18,7 @@ exports.main = async (event, context) => {
     const value = res.data
     if (value && value.length)
       return {ok:false}
-    return coll.add({ name, cardId: +cardId, openId: wxContext.OPENID, status: "正常" }).then(()=>{
+    return coll.add({data:{ name, cardId: +cardId, openId: wxContext.OPENID, status: "正常" }}).then(()=>{
       return {ok:true}
     })
   })

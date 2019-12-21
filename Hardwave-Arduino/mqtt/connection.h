@@ -39,7 +39,7 @@ void reconnectMQTT()
     {
         Serial.print(F("[FAILED] [ mqtt connect error code = "));
         Serial.print(client.state());
-        Serial.println(F(" : retrying in 5 seconds]")); // Wait 5 seconds before retrying
+        Serial.println(F(" : retrying in 3 seconds]")); // Wait 5 seconds before retrying
     }
 }
 
@@ -50,7 +50,7 @@ void initConnection()
     WiFi.init(&soft);
     client.setServer(MQTT_SERVER, MQTT_PORT);
     tasker.setInterval(reconnectWifi,500);
-    tasker.setInterval(reconnectMQTT,500);
+    tasker.setInterval(reconnectMQTT,3000);
 }
 
 //循环检测函数 loop()调用
