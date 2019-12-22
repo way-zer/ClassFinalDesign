@@ -45,6 +45,7 @@
   color: white;
   border-radius: 12px;
 }
+
 /* Footer */
 .footer{
   position: fixed;
@@ -55,14 +56,14 @@
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
 }
 
-.btnLeft {
+.footer > button {
   border-radius: 0px;
+}
+
+.border {
   border-right: 1px solid #d8d8d8;
 }
 
-.btnRight {
-  border-radius: 0px;
-}
 /* Modal */
 .modal{
   position: fixed;

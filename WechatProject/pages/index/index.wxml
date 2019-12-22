@@ -13,21 +13,24 @@
     </view>
   </block>
   <view class="footer">
-    <button class='btnLeft' bindtap='toReport'>我要挂失</button>
-    <button class='btnRight' bindtap='openModal'>捡到卡了</button>
+    <button bindtap='toReport'>我要挂失</button>
+    <text class="border"></text>
+    <button bindtap='openModal'>捡到卡了</button>
   </view>
 </view>
 <block wx:if="{{modal}}">
   <view class="modal" bindtap="cancelModal">
   </view>
   <view class="window">
-    <view class="windowTitle">自助挂失</view>
-    <view class="weui-cell">
-      <input class="weui-input" placeholder="请输入姓名"></input>
-    </view>
-    <view class="weui-cell">
-      <input class="weui-input" placeholder="请输入卡号"></input>
-    </view>
-    <button class="windowBtn" bindtap='finishForm'>确认挂失</button>
+    <view class="windowTitle">请填写卡信息</view>
+    <form bindsubmit="finishForm">
+      <view class="weui-cell" >
+        <input class="weui-input" placeholder="请输入姓名" name="name"></input>
+      </view>
+      <view class="weui-cell">
+        <input class="weui-input" placeholder="请输入卡号" name="cardId"></input>
+      </view>
+      <button class="windowBtn" form-type="submit">确认</button>
+    </form>
   </view>
 </block>

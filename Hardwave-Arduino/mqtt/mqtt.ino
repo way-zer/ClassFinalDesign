@@ -20,7 +20,7 @@ void setup()
     Serial.begin(115200);
     client.setCallback(mqttCallback);
     initConnection();
-    stepper.setSpeed(8);
+    stepper.setSpeed(6);
     stepper.step(2048);
     stepperStop();
 }

@@ -12,7 +12,7 @@ exports.main = async(event, context) => {
   const {
     page
   } = event
-  return coll.orderBy("date", "desc").skip((page || 1 - 1) * 20).limit(20).get().then(res => {
+  return coll.orderBy("date", "desc").skip(((page || 1) - 1) * 20).limit(20).get().then(res => {
     const data = res.data || []
     data.forEach(v => {
       v.key = v._id;

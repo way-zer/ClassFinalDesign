@@ -3,25 +3,27 @@ Page({
   data: {
     modal: false,
   },
-  onLoad: function (options) {
-    app.service.infosHook = value=>{
+  onLoad: function(options) {
+    app.service.infosHook = value => {
       this.setData({
         informations: value
       })
     }
+  },
+  onShow() {
     app.service.loadInfos()
   },
-  onUnload(){
+  onUnload() {
     app.service.infosHook = null;
   },
-  toReport: function () {
+  toReport: function() {
     console.log("a")
     wx.navigateTo({
       url: '/pages/report/report'
     })
   },
 
-  openModal: function () {
+  openModal: function() {
     this.setData({
       modal: true
     })
@@ -31,15 +33,18 @@ Page({
     })
 
   },
-  finishForm: function () {
-    this.cancelModal()
-    app.service.reportFound().then(value => {
-      
+  finishForm: function(event) {
+    const {
+      name,
+      cardId
+    } = event.detail.value
+    app.service.reportFound(name, cardId).then(value => {
+      this.cancelModal()
+      wx.showModal({
+        title: '提示',
+        content: '输入相关信息后请将校园卡放入箱子中',
+        showCancel: false
       })
-    wx.showModal({
-      title: '提示',
-      content: '输入相关信息后请将校园卡放入箱子中',
-      showCancel: false
     })
   },
   cancelModal() {
